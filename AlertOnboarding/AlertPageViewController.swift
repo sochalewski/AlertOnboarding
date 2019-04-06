@@ -44,7 +44,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource,
         super.viewDidLoad()
         
         if (alertview.nextInsteadOfSkip) {
-            self.alertview.buttonBottom.setTitle(alertview.titleNextButton, for: UIControlState())
+            self.alertview.buttonBottom.setTitle(alertview.titleNextButton, for: UIControl.State())
         }
         
         self.configurePageViewController()
@@ -53,7 +53,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource,
         self.view.backgroundColor = UIColor.clear
         self.view.addSubview(self.pageController.view)
         self.view.addSubview(self.pageControl)
-        self.pageController.didMove(toParentViewController: self)
+        self.pageController.didMove(toParent: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,13 +104,13 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource,
         //FROM COCOAPOD
         if let bundleURL = podBundle.url(forResource: "AlertOnboardingXib", withExtension: "bundle") {
             if let bundle = Bundle(url: bundleURL) {
-                pageContentViewController = UINib(nibName: "AlertChildPageViewController", bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as! AlertChildPageViewController
+                pageContentViewController = UINib(nibName: "AlertChildPageViewController", bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as? AlertChildPageViewController
             } else {
                 assertionFailure("Could not load the bundle.. Please re-install AlertOnboarding via Cocoapod or install it manually.")
             }
             //FROM MANUAL INSTALL
         }else {
-            pageContentViewController = UINib(nibName: "AlertChildPageViewController", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! AlertChildPageViewController
+            pageContentViewController = UINib(nibName: "AlertChildPageViewController", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? AlertChildPageViewController
         }
         
         pageContentViewController.pageIndex = index // 0
@@ -118,7 +118,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource,
         let realIndex = arrayOfAlerts.count - index - 1
         
         pageContentViewController.image.image = arrayOfAlerts[realIndex].image
-        pageContentViewController.image.layer.minificationFilter = kCAFilterTrilinear
+        pageContentViewController.image.layer.minificationFilter = CALayerContentsFilter.trilinear
         pageContentViewController.labelMainTitle.font = alertview.fontTitleLabel
         pageContentViewController.labelMainTitle.text = arrayOfAlerts[realIndex].title
         pageContentViewController.labelMainTitle.textColor = alertview.colorTitleLabel
@@ -147,11 +147,11 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource,
         if pageControl != nil {
             pageControl.currentPage = arrayOfAlerts.count - pageIndex - 1
             if pageControl.currentPage == arrayOfAlerts.count - 1 {
-                self.alertview.buttonBottom.setTitle(alertview.titleGotItButton, for: UIControlState())
+                self.alertview.buttonBottom.setTitle(alertview.titleGotItButton, for: UIControl.State())
             } else if (alertview.nextInsteadOfSkip) {
-                self.alertview.buttonBottom.setTitle(alertview.titleNextButton, for: UIControlState())
+                self.alertview.buttonBottom.setTitle(alertview.titleNextButton, for: UIControl.State())
             } else {
-                self.alertview.buttonBottom.setTitle(alertview.titleSkipButton, for: UIControlState())
+                self.alertview.buttonBottom.setTitle(alertview.titleSkipButton, for: UIControl.State())
             }
         }
         
@@ -185,7 +185,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource,
     }
     
     fileprivate func configurePageViewController(){
-        self.pageController = UIPageViewController(transitionStyle: UIPageViewControllerTransitionStyle.scroll, navigationOrientation: UIPageViewControllerNavigationOrientation.horizontal, options: nil)
+        self.pageController = UIPageViewController(transitionStyle: UIPageViewController.TransitionStyle.scroll, navigationOrientation: UIPageViewController.NavigationOrientation.horizontal, options: nil)
         self.pageController.view.backgroundColor = UIColor.clear
         
         if #available(iOS 9.0, *) {
@@ -206,7 +206,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource,
         
         didMoveToPageIndex(pageIndex: arrayOfAlerts.count-1)
         
-        self.addChildViewController(self.pageController)
+        self.addChild(self.pageController)
     }
     
     //MARK: Called after notification orientation changement

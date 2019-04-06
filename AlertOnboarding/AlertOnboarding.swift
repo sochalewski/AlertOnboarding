@@ -86,8 +86,8 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
         //Update Color
         self.buttonBottom.backgroundColor = colorButtonBottomBackground
         self.backgroundColor = colorForAlertViewBackground
-        self.buttonBottom.setTitleColor(colorButtonText, for: UIControlState())
-        self.buttonBottom.setTitle(self.titleSkipButton, for: UIControlState())
+        self.buttonBottom.setTitleColor(colorButtonText, for: UIControl.State())
+        self.buttonBottom.setTitle(self.titleSkipButton, for: UIControl.State())
         
         self.container = AlertPageViewController(arrayOfAlerts: arrayOfAlerts, alertView: self)
         self.container.delegate = self
@@ -181,7 +181,7 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
     }
     
     fileprivate func animateForEnding(){
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.alpha = 0.0
             }, completion: {
                 (finished: Bool) -> Void in
@@ -190,7 +190,7 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
                     () -> Void in
                     self.background.removeFromSuperview()
                     self.removeFromSuperview()
-                    self.container.removeFromParentViewController()
+                    self.container.removeFromParent()
                     self.container.view.removeFromSuperview()
                 }
         })
@@ -202,7 +202,7 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
         if (nextInsteadOfSkip) {
             if let viewController = self.container.viewControllerAtIndex((self.container.pageController.viewControllers?[0] as! AlertChildPageViewController).pageIndex!-1)
             {
-                self.container.pageController.setViewControllers([viewController], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil)
+                self.container.pageController.setViewControllers([viewController], direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
                 self.container.didMoveToPageIndex(pageIndex: (viewController as! AlertChildPageViewController).pageIndex)
                 
                 return;
@@ -230,7 +230,7 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
     //MARK: NOTIFICATIONS PROCESS ------------------------------------------
     fileprivate func interceptOrientationChange(){
         UIDevice.current.beginGeneratingDeviceOrientationNotifications()
-        NotificationCenter.default.addObserver(self, selector: #selector(AlertOnboarding.onOrientationChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AlertOnboarding.onOrientationChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     @objc func onOrientationChange(){
