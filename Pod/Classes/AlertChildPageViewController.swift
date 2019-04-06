@@ -10,7 +10,7 @@ import UIKit
 
 @objc public class AlertChildPageViewController: UIViewController {
     
-    internal(set) var pageIndex: Int!
+    var pageIndex: Int!
     
     @objc @IBOutlet public private(set) weak var image: UIImageView!
     @objc @IBOutlet public private(set) weak var labelMainTitle: UILabel!
