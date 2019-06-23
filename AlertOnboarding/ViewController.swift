@@ -16,8 +16,7 @@ class ViewController: UIViewController, AlertOnboardingDelegate {
     
     let alert1 = Alert(image: UIImage(named: "image1")!, title: "CREATE ACCOUNT", text: "In your profile, you can view the statistics of its operations and the recommandations of friends")
     let alert2 = Alert(image: UIImage(named: "image2")!, title: "CHOOSE THE PLANET", text: "Purchase tickets on hot tours to your favorite planet and fly to the most comfortable intergalactic spaceships of best companies")
-    let alert3 = Alert(image: UIImage(named: "image3")!, title:  "DEPARTURE", text: "In the process of flight you will be in cryogenic sleep and supply the body with all the necessary things for life bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla XXX")
-
+    let alert3 = Alert(image: UIImage(named: "image3")!, title:  "DEPARTURE", text: "In the process of flight you will be in cryogenic sleep and supply the body with all the necessary things for life")
     
     override func viewDidLoad() {
         super.viewDidLoad()
